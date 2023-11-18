@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const shortid = require("shortid");
 const app = express();
-var validUrl = require("valid-url");
+const { URL } = require("url");
 
 dotenv.config();
 // Basic Configuration
@@ -36,10 +36,11 @@ async function connectDB() {
 }
 
 function isValidUrl(userUrl) {
-  if (validUrl.isUri(userUrl)) {
+  try {
+    new URL(userUrl);
     return true;
-  } else {
-    return true;
+  } catch (error) {
+    return false;
   }
 }
 
