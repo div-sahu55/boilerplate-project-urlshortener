@@ -1,3 +1,4 @@
+const isUrlHttp = require("is-url-http");
 const dotenv = require("dotenv");
 const express = require("express");
 const cors = require("cors");
@@ -36,12 +37,8 @@ async function connectDB() {
 }
 
 function isValidUrl(userUrl) {
-  try {
-    new URL(userUrl);
-    return true;
-  } catch (error) {
-    return false;
-  }
+  const check = isUrlHttp(userUrl);
+  return check;
 }
 
 async function checkUrl(givenUrl) {
